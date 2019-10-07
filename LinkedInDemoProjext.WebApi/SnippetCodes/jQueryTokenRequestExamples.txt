@@ -1,0 +1,36 @@
+﻿var data = {
+	Username: "sinan.sahin",
+	Password: "123456"
+};
+
+var requestExample = function(){
+    $.ajax({
+        url: '/api/users/login',
+        method: 'POST',
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+        success: function(data){
+			console.log(data);
+			$.UserToken = data.token
+        }
+    });
+};
+
+
+//------------------------------------------------------------------------------------------------------
+
+var requestExampleAfterTheLogin = function(){
+    $.ajax({
+        url: '/api/users/',
+		headers: {
+        	"Authorization": "Bearer " + $.UserToken,
+    	},
+        method: 'GET',
+        dataType : "json",
+        contentType: "application/json; charset=utf-8",
+        success: function(data){
+          console.log(data);
+        }
+    });
+};
